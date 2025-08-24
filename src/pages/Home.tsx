@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Scale, Users, Award, Clock, ArrowRight, Star, CheckCircle, Sparkles, Shield, Heart } from 'lucide-react';
+import { Page } from '../components/layout/Layout';
 
 const Home: React.FC = () => {
   const services = [
@@ -76,7 +77,12 @@ const Home: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen">
+    <Page 
+      title="Dra. María González - Abogada Especialista | Asesoría Legal Profesional"
+      description="Servicios legales profesionales con más de 15 años de experiencia. Especialista en derecho civil, penal, laboral y familiar. Consulta gratuita disponible."
+      keywords="abogada, servicios legales, derecho civil, derecho penal, asesoría legal, consulta gratuita, María González"
+    >
+      <div>
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-primary-900 via-primary-800 to-accent-900 text-white py-20 lg:py-32">
         {/* Background decoration */}
@@ -392,7 +398,8 @@ const Home: React.FC = () => {
           </Link>
         </div>
       </section>
-    </div>
+      </div>
+    </Page>
   );
 };
 

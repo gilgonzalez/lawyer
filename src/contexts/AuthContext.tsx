@@ -65,15 +65,37 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         .from('profiles')
         .select('*')
         .eq('id', userId)
-        .single()
+        .maybeSingle()
 
       if (error) {
         console.error('Error fetching profile:', error)
-      } else {
+        setLoading(false)
+        return
+      }
+
+      if (data) {
+        // Profile exists, use it
         setProfile(data)
+      } else {
+        // No profile exists, create a default one
+        console.log('No profile found, creating default profile for user:', userId)
+        const { data: newProfile, error: createError } = await supabase
+          .from('profiles')
+          .insert({
+            id: userId,
+            role: 'client' as const,
+          })
+          .select()
+          .single()
+
+        if (createError) {
+          console.error('Error creating profile:', createError)
+        } else {
+          setProfile(newProfile)
+        }
       }
     } catch (error) {
-      console.error('Error fetching profile:', error)
+      console.error('Error in fetchProfile:', error)
     } finally {
       setLoading(false)
     }
